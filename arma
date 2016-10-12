@@ -1,0 +1,9 @@
+rm obj/*.o
+gcc -m64 -g -c arch/control.c -o obj/control.o -fno-builtin -nostartfiles -nostdlib -I include/
+gcc -m64 -g -c kernel64.c -o obj/kernel64.o -fno-builtin -nostartfiles -nostdlib -I include/
+gcc -m64 -g -c drivers/video.c -o obj/video.o -fno-builtin -nostartfiles -nostdlib -I include/
+gcc -m64 -g -c lib/string.c -o obj/string.o -fno-builtin -nostartfiles -nostdlib -I include/
+gcc -m64 -g -c lib/klib.c -o obj/klib.o -fno-builtin -nostartfiles -nostdlib -I include/
+#ld -melf_x86_64 -g -T kernel64.ld obj/kernel64.o obj/video.o obj/string.o obj/klib.o obj/control.o -o kernel64.sys #-nostdlib -nodefaultlibs
+ld -melf_x86_64 -g -T kernel64.ld obj/*.o -o kernel64.sys #-nostdlib -nodefaultlibs
+mcopy -o kernel64.sys c:/
